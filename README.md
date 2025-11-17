@@ -1,48 +1,39 @@
-# lansec
+# httpwaf
 
-## 一 、介绍
-lansec本质是局域网逻辑网关隔离系统+AI流量学习，减少局域网99.9%以上的0day漏洞的远程利用，拦截木马通信和保障局域网数据安全。
+#### 一 、介绍
+httpwaf是一款永久免费的web应用防火墙，用AI+规则+语义分析对抗未知攻击，也可以开源，是业界最好用的waf。
 
-## 二 、局域网防御非常重要
-大多内网渗透都是通过利用终端软件漏洞如视频、社交、浏览器、电子邮件、输入法等在局域网的电脑电脑植入后门，从而入侵内网。[**查看部分2025公开的终端软件高危漏洞和攻击手段**](./exploit.md)
-政府军事等重要部门都是物理隔离防止0day利用，由于云技术的迅速发展，企业研发、运营、客服、财务等都必须联网，部署逻辑隔离系统非常有必要。
+#### 二 、两种安装架构
+##### 1、直接安装在WEB服务器上
 
-## 三、系统内核要求
-要求内核版本大于3.10，推荐2020年以后的linux发行版本：
-* Ubuntu 16.04+
-* Fedora 31+
-* RHEL 7.0+
-* Debian 10+
-* Rocky Linux 9.0+
-* ...
+​    服务器原HTTP端口80改为其他如81，原HTTPS端口443改为4433，然后WAF占用80、443即可。
 
-```console
-$ wget http://39.106.251.213/lansec.tar.gz
-$ mkdir /lansec/ && tar -zxvf lansec.tar.gz -C /lansec/ && chmod 777 /lansec/bin/* && /lansec/bin/lansec daemon
-$ 1. Kill all of  processes...........................
-  2. Init  ok.........................................
-  3. System is running................................
-```
-成功运行后，可以用浏览器登陆web管理口是5678
+    WAF（80)<------------->127.0.0.1:81
+    WAF（443)<------------>127.0.0.1:4433
 
-* 停止运行/lansec/bin/lansec stop
-* 卸载 rm /lansec/ -rf
-## 四、两种运行模式
-#### 1、单网卡软件模式
-局域网任何一台Linux（包括虚拟机）安装一台，即可对整个局域网进行防御。典型的安装步骤是：
-* 1、在Windows上安装Vmware虚拟机，然后安装Linux操作系统，把物理网卡设置为桥接模式（必须是有线网卡，不能是无线网卡）。保证Linux、Windows、路由器在同一个IP网段。
-* 2、在Linux上安装Lansec。
-* 3、需要防护的Windows上运行ncpa.cpl命令，去掉IPv6协议，再把IPv4的网关指向lansec的IP地址如192.168.1.8，配置好DNS即可，如下图：
-<img height="900" width="820" src="https://github.com/ebpf-security/ebpf-security.github.io/blob/main/img/lan.png"></img></a>
-#### 2、双网卡硬件模式
-硬件模式终端电脑不需要任何设置，支持IPv6，硬件隔离比软件隔离更安全。
-<img height="307" width="512" src="https://github.com/ebpf-security/ebpf-security.github.io/blob/main/img/gateway.png"></img></a>
- 	
- 	
-## 五、商业版演示地址
+##### 2、独立部署，反向代理WEB服务器
 
-演示地址 [http://39.106.251.213:9998/](http://39.106.251.213:9998/)
+    WAF（80)<------------->WEB服务器:80
+    WAF（443)<------------>WEB服务器:443
 
-## 六、源码部署和技术白皮书微信号httpwaf
+
+#### 三、安装教程
+支持Linux x86 64位原生系统(arm暂不开放)，保证可以上网，并且80、443和9999端口没有被占用，以root权限运行下面命令：
+
+1、   wget http://39.106.251.213/httpwaf
+
+2 、  chmod +x ./httpwaf 
+
+3 、  ./httpwaf 运行即可用web管理口9999端口登录，9999端口禁止暴露在互联网。
+
+#### 四、实战演示地址
+
+实战地址 [http://39.106.251.213/](http://39.106.251.213/)
+
+#### 五、源码部署请加微信号httpwaf
 
 ![](https://gitee.com/httpwaf/httpwaf/raw/master/img/wechat.png)
+
+#### 六、来一张首页图片
+
+![](https://gitee.com/httpwaf/httpwaf/raw/master/img/home.png)
