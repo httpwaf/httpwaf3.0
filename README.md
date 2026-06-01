@@ -30,7 +30,8 @@ httpwaf是一款永久免费的web应用防火墙，用AI+规则+语义分析对
 
 实战地址 [http://39.106.251.213/](http://39.106.251.213/)
 
-#### 五、源码部署请加微信号httpwaf
+#### 五、源码解压密码请加微信号httpwaf
+pdf技术白皮书内有源码下载地址 [http://39.106.251.213:9998/firewall.pdf](http://39.106.251.213:9998/firewall.pdf)
 
 ![](https://gitee.com/httpwaf/httpwaf/raw/master/img/wechat.png)
 
